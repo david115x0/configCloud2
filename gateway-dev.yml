@@ -34,6 +34,11 @@ spring:
                 name: catalogService
                 fallbackUri: forward:/fallback/catalog
 
-queue:
-  movie:
-    name: MovieQueue
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-service:8761/eureka/
