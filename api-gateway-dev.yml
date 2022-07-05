@@ -2,20 +2,20 @@ server:
   port: 8080
 
 spring:
-  eureka:
-    client:
-      register-with-eureka: true
-      fetch-registry: true
-      serviceUrl:
-        defaultZone: http://localhost:8761/eureka
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://config-server:8888/
+  zipkin:
+    base-url: http://zipkin-service:9411/
   cloud:
-    gateway:
+    config:
       discovery:
-        locator:
+        profile: dev
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: avaliacao_movie-service
+        - id: movie-service
           uri: http://localhost:8001
           predicates:
             - Path=/movies/**
@@ -24,7 +24,7 @@ spring:
               args:
                 name: moviesService
                 fallbackUri: forward:/fallback/movies
-        - id: avaliacao_catalog-service
+        - id: catalog-service
           uri: http://localhost:8002
           predicates:
             - Path=/catalog/**
