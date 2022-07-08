@@ -1,0 +1,41 @@
+server:
+  port: 8003
+  servlet:
+    context-path: /series/
+spring:
+  application:
+    name: serie-service
+  zipkin:
+    base-url: http://zipkin-service:9411/
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: examefinalmongoSerie
+
+eureka:
+  instance:
+    hostname: eureka-service
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+mensagem: hello movie
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+queue:
+  serie:
+    name: SerieQueue
