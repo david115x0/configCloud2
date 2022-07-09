@@ -1,0 +1,48 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /movies/
+
+spring:
+  application:
+    name: movie-service
+  zipkin:
+    base-url: http://zipkin-service:9411/
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/examefinalmovie
+    username: root
+    password: 2319
+  jpa:
+    deferDatasourceInitialization: true
+    hibernate:
+      ddlAuto: create-drop
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+
+eureka:
+  instance:
+    hostname: eureka-service
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+mensagem: hello movie
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+queue:
+  movie:
+    name: movieQueue
+
+  message: Novo filme adicionado
