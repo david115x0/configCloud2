@@ -1,0 +1,44 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /catalog/
+spring:
+  application:
+    name: catalog-service
+  zipkin:
+    base-url: http://zipkin-service:9411/
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    data:
+      mongodb:
+        uri: mongodb://localhost:27017
+        database: examefinalmongoCatalog
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+
+eureka:
+  instance:
+    hostname: eureka-service
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-service:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      buscarFimeSerie:
+        minimumNumberOfCalls: 4
+        slidingWindowSize: 8
+
+queue:
+  serie:
+    name: SerieQueue
+  movie:
+    name: MovieQueue
+
+  message: catalog up
